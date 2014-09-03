@@ -5,7 +5,7 @@
 
 module Rack
   class ContentTypeDefault
-    def initialize(app, methods = [:get], content_type = 'application/json')
+    def initialize(app, methods = [:post], content_type = 'application/json')
       @app = app
       @methods = [*methods].map{ |item| item.to_s.upcase }
       @content_type = content_type
