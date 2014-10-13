@@ -17,7 +17,7 @@ Example:
 
 ```
 require 'rack/content-type-default`
-config.middleware.use Rack::ContentTypeDefault, :get, 'application/x-www-form-urlencoded'
+config.middleware.use Rack::ContentTypeDefault, :post, 'application/x-www-form-urlencoded'
 ```
 
 ## Why

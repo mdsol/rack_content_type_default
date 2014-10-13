@@ -13,29 +13,29 @@ describe Rack::ContentTypeDefault do
     end
   end
 
-  context 'no method explicitly specified applies to get requests only' do
+  context 'no method explicitly specified applies to post requests only' do
     it 'sets the content type to default application/json' do
-      request  = Rack::MockRequest.env_for("/api/v2/customers", method: :get)
+      request  = Rack::MockRequest.env_for("/api/v2/customers", method: :post)
       Rack::ContentTypeDefault.new(App).call(request)
       request['CONTENT_TYPE'].should == 'application/json'
     end
 
     it 'does not override existing content type' do
-      request  = Rack::MockRequest.env_for("/api/v2/customers", method: :get)
+      request  = Rack::MockRequest.env_for("/api/v2/customers", method: :post)
       request['CONTENT_TYPE'] = 'application/xml'
       Rack::ContentTypeDefault.new(App).call(request)
       request['CONTENT_TYPE'].should == 'application/xml'
     end
 
     it 'does override empty content type' do
-      request  = Rack::MockRequest.env_for("/api/v2/customers", method: :get)
+      request  = Rack::MockRequest.env_for("/api/v2/customers", method: :post)
       request['CONTENT_TYPE'] = ''
       Rack::ContentTypeDefault.new(App).call(request)
       request['CONTENT_TYPE'].should == 'application/json'
     end
 
-    it 'does not the content type for post request' do
-      request  = Rack::MockRequest.env_for("/api/v2/customers", method: :post)
+    it 'does not the content type for get request' do
+      request  = Rack::MockRequest.env_for("/api/v2/customers", method: :get)
       Rack::ContentTypeDefault.new(App).call(request)
       request['CONTENT_TYPE'].should_not == 'application/json'
     end
