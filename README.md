@@ -3,8 +3,8 @@
 Rack::ContentTypeDefault is a tiny piece of middleware that sets default `CONTENT-TYPE:` header when it isn't present
 for specific requests. It checks if a content type is set and does not override the existing one.
 The options allow you to specify the request methods and the content type to be set. The options also allow you to set
-a default content type only on select paths. In addition, the options allow  you to set content type to to xml or json
-if possible based on the path.
+a default content type only on select paths. In addition, the options allow  you to set content type to to application/xml
+or application/json if possible based on the path.
 
 The code has been copied and adapted from https://gist.github.com/tstachl/6264249
 
@@ -35,4 +35,4 @@ config.middleware.use Rack::ContentTypeDefault, :post, 'application/json', ['/au
 ## Why
 
 It is useful if you want to make your application opinionated about the content type it expects from clients when not
-provided on some or all requests. In addition it bridges a gap between test and production environments if the clients differ.
+provided on some requests. In addition it bridges a gap between test and production environments if the clients differ.
