@@ -35,4 +35,4 @@ config.middleware.use Rack::ContentTypeDefault, :post, 'application/json', ['/au
 ## Why
 
 It is useful if you want to make your application opinionated about the content type it expects from clients when not
-provided on some requests. In addition it bridges a gap between test and production environments if the clients differ.
+provided. In addition it bridges a gap between test and production environments if the clients differ.
