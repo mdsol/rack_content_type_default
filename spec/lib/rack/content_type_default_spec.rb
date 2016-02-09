@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'rack/mock'
 
 describe Rack::ContentTypeDefault do
-
   before do
     App = lambda { |env| [200, {'Content-Type' => 'text/plain'}, env['PATH_INFO']] }
     @post_req = Rack::MockRequest.env_for("/api/v2/customers", method: :post)
