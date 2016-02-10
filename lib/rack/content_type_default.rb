@@ -4,8 +4,6 @@
 # allow  you to set content type to to application/json or application/xml if possible based on the path ending.
 # Copied and adapted from https://gist.github.com/tstachl/6264249
 
-require 'active_support/core_ext'
-
 module Rack
   class ContentTypeDefault
     def initialize(app, methods = [:post], content_type = 'application/json', paths = 'all', default_based_on_path = false)
@@ -45,9 +43,10 @@ module Rack
     # If @paths was explicitly set to empty, content type will not be set.
     def match_path?(path_info)
       return true if @paths.first == 'all'
-      return @paths.any? { |path| path_info.ends_with?(path) or path_info.include?("#{path}.") }
+      return @paths.any? { |path| /#{path}$/.match(path_info) or /#{path}\./.match(path_info) }
+
     end
-    
+
     #Determine if content type can be set to application/json or application/xml based on the path ending.
     #If the path does not end in xml or json, content type is set to the given default.
     def determine_content_type(path_info)
