@@ -3,7 +3,7 @@
 # to be set. The options also allow you to set a default content type only on select paths. In addition, the options
 # allow  you to set content type to to application/json or application/xml if possible based on the path ending.
 # Copied and adapted from https://gist.github.com/tstachl/6264249
-
+require 'byebug'
 module Rack
   class ContentTypeDefault
     def initialize(app, methods = [:post], content_type = 'application/json', paths = 'all', default_based_on_path = false)
@@ -16,20 +16,17 @@ module Rack
 
     def call(env)
       req = Rack::Request.new(env)
-      @app.call(env) and return unless reset_content_type?(req)
-
-      env['CONTENT_TYPE'] = @default_based_on_path ? determine_content_type(req.env['PATH_INFO']) :  @content_type
+      if set_content_type?(req)
+        env['CONTENT_TYPE'] = @default_based_on_path ? determine_content_type(req.env['PATH_INFO']) :  @content_type
+      end
       @app.call(env)
     end
 
-
     private
     # Determine whether or not to reset content type
-    def reset_content_type?(req)
-      return false unless req.content_type.nil? or req.content_type.empty?
-      return false unless match_method?(req.request_method)
-      return false unless match_path?(req.env['PATH_INFO'])
-      return true
+    def set_content_type?(req)
+      (req.content_type.nil? || req.content_type.empty?) && match_method?(req.request_method) &&
+          match_path?(req.env['PATH_INFO'])
     end
 
     # Match the method on the request with the methods specified or the default.
