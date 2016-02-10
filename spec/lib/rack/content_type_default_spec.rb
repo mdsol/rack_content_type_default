@@ -90,7 +90,7 @@ describe Rack::ContentTypeDefault do
       post_req['CONTENT_TYPE'].should == 'application/xml'
     end
 
-    it 'sets content type on no requests if paths specified as empty ' do
+    it 'does not set content type on any requests if paths specified as empty ' do
       get_req['PATH_INFO'] = 'api/v2/customers/2155/authenticate.json'
       Rack::ContentTypeDefault.new(App, :get, 'application/xml', []).call(get_req)
       get_req['CONTENT_TYPE'].should == nil
@@ -100,7 +100,7 @@ describe Rack::ContentTypeDefault do
   context 'default_based_on_path is set to true' do
     it 'sets content type to application/json if path ends in .json' do
       post_req['PATH_INFO'] = 'api/v2/customers/2155/authenticate.json'
-      Rack::ContentTypeDefault.new(App, :post, 'application/xml', ['/authenticate.json', '/show'], true).call(post_req)
+      Rack::ContentTypeDefault.new(App, :post, 'application/xml', ['/authenticate', '/show'], true).call(post_req)
       post_req['CONTENT_TYPE'].should == 'application/json'
     end
 
