@@ -34,14 +34,12 @@ module Rack
       return true
     end
 
-    private
     # Match the method on the request with the methods specified or the default.
     # If @methods was provided as empty, content type will not be set.
     def match_method?(method)
       @methods.include?(method)
     end
 
-    private
     # Match the path on the request with the paths specified. Content type is set only if a match is found.
     # If @paths was provided with 'all' as the first element (default), content type will be set for all requests.
     # If @paths was explicitly set to empty, content type will not be set.
@@ -49,8 +47,7 @@ module Rack
       return true if @paths.first == 'all'
       return @paths.any? { |path| path_info.ends_with?(path) or path_info.include?("#{path}.") }
     end
-
-    private
+    
     #Determine if content type can be set to application/json or application/xml based on the path ending.
     #If the path does not end in xml or json, content type is set to the given default.
     def determine_content_type(path_info)
