@@ -3,7 +3,6 @@
 # to be set. The options also allow you to set a default content type only on select paths. In addition, the options
 # allow  you to set content type to to application/json or application/xml if possible based on the path ending.
 # Copied and adapted from https://gist.github.com/tstachl/6264249
-require 'byebug'
 module Rack
   class ContentTypeDefault
     def initialize(app, methods = [:post], content_type = 'application/json', paths = 'all', default_based_on_path = false)
