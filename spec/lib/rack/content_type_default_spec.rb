@@ -69,9 +69,9 @@ describe Rack::ContentTypeDefault do
 
   context 'paths' do
     it 'sets the content type as appropriate if the path in the request matches one specified' do
-      get_req['PATH_INFO'] = 'api/v2/customers/2155/authenticate.json'
-      Rack::ContentTypeDefault.new(App, :get, 'application/xml', ['/show', '/authenticate.json']).call(get_req)
-      get_req['CONTENT_TYPE'].should == 'application/xml'
+      post_req['PATH_INFO'] = 'api/v2/customers/2155/authenticate.json'
+      Rack::ContentTypeDefault.new(App, :post, 'application/xml', ['/show', '/authenticate.json']).call(post_req)
+      post_req['CONTENT_TYPE'].should == 'application/xml'
     end
 
     it 'does not set a content type if the path in the request does not match any specified' do
@@ -85,7 +85,7 @@ describe Rack::ContentTypeDefault do
       get_req['CONTENT_TYPE'].should == 'application/xml'
     end
 
-    it 'sets content type as appropriate on all requests if paths is none are explicitly specified' do
+    it 'sets content type as appropriate on all requests by default since no paths specified defaults to all paths' do
       Rack::ContentTypeDefault.new(App, :post, 'application/xml').call(post_req)
       post_req['CONTENT_TYPE'].should == 'application/xml'
     end
@@ -97,8 +97,8 @@ describe Rack::ContentTypeDefault do
     end
   end
 
-  context 'default_based_on_path is set to true' do
-    it 'sets content type to application/json if path ends in .json' do
+  context 'use_path_hint is set to true' do
+    it 'overrides content type to application/json if path ends in .json' do
       post_req['PATH_INFO'] = 'api/v2/customers/2155/authenticate.json'
       Rack::ContentTypeDefault.new(App, :post, 'application/xml', ['/authenticate', '/show'], true).call(post_req)
       post_req['CONTENT_TYPE'].should == 'application/json'
@@ -117,7 +117,7 @@ describe Rack::ContentTypeDefault do
     end
   end
 
-  context 'default_based_on_path is set to false' do
+  context 'use_path_hint is set to false' do
     it 'does not set content type based on path ending if argument explicitly set to false' do
       get_req['PATH_INFO'] = 'api/v2/customers/2155/authenticate.json'
       Rack::ContentTypeDefault.new(App, :get, 'application/xml', '/authenticate.json', false).call(get_req)
