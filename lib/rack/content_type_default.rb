@@ -22,7 +22,7 @@ module Rack
     end
 
     private
-    # Determine whether or not to reset content type
+    # Determine whether or not to override content type
     def override_content_type?(req)
       (req.content_type.nil? || req.content_type.empty?) && match_method?(req.request_method) &&
           match_path?(req.env['PATH_INFO'])
