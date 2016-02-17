@@ -6,8 +6,8 @@ require 'rack/content_type_default/version'
 Gem::Specification.new do |s|
   s.name                      = 'rack_content_type_default'
   s.version                   = Rack::ContentTypeDefault::VERSION
-  s.authors                   = ['Purnima Mavinkurve']
-  s.email                     = ['pmavinkurve@mdsol.com']
+  s.authors                   = ['Purnima Mavinkurve', 'Connor Savage']
+  s.email                     = ['pmavinkurve@mdsol.com', 'csavage@mdsol.com']
   s.homepage                  = 'https://github.com/pmavinkurve-mdsol/rack_content_type_default'
   s.summary                   = 'Rack Middleware for setting content type when not provided' 
   s.description               = 'Rack Middleware for setting content type when not provided'
