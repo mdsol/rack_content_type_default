@@ -16,25 +16,28 @@ The code has been copied and adapted from https://gist.github.com/tstachl/626424
 
 ## Installation
 
-### rubygems
+Add the following line to your application's Gemfile:
 
-TBD
+```ruby
+gem 'rack_content_type_default', '~> 1.0'
+```
 
 ## Usage
+
 Examples:
 
-```
-require 'rack/content-type-default`
+```ruby
+require 'rack/content-type-default'
 config.middleware.use Rack::ContentTypeDefault, :post, 'application/x-www-form-urlencoded'
 ```
 
-```
-require 'rack/content-type-default`
+```ruby
+require 'rack/content-type-default'
 config.middleware.use Rack::ContentTypeDefault, [:get, :post], 'application/xml', '/authenticate.xml'
 ```
 
-```
-require 'rack/content-type-default`
+```ruby
+require 'rack/content-type-default'
 config.middleware.use Rack::ContentTypeDefault, :post, 'application/json', ['/authenticate.json', '/show'], true
 ```
 
